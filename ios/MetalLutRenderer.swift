@@ -202,6 +202,7 @@ final class MetalLutRenderer {
       tex.replace(
         region: region,
         mipmapLevel: 0,
+        slice: 0,
         withBytes: ptr.baseAddress!,
         bytesPerRow: n * 4,
         bytesPerImage: n * n * 4
@@ -279,7 +280,7 @@ final class MetalLutRenderer {
       height: height,
       pipeline: haldPipeline,
       setupEncoder: { enc in
-        enc.setFragmentBuffer(&uni, length: MemoryLayout<LutUniforms>.stride, index: 0)
+        enc.setFragmentBytes(&uni, length: MemoryLayout<LutUniforms>.stride, index: 0)
         enc.setFragmentTexture(sourceTexture, index: 0)
         enc.setFragmentTexture(lutTexture, index: 1)
       }
@@ -335,7 +336,7 @@ final class MetalLutRenderer {
       height: height,
       pipeline: pipelineStateCube,
       setupEncoder: { enc in
-        enc.setFragmentBuffer(&uni, length: MemoryLayout<CubeUniforms>.stride, index: 0)
+        enc.setFragmentBytes(&uni, length: MemoryLayout<CubeUniforms>.stride, index: 0)
         enc.setFragmentTexture(sourceTexture, index: 0)
         enc.setFragmentTexture(cubeTex, index: 1)
       }
