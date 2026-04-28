@@ -97,3 +97,21 @@ fragment float4 lutFragmentCube(
   const float3 outRgb = mix(src, graded, u.param.x);
   return float4(outRgb, 1.0f);
 }
+
+fragment float4 lutFragment(
+  VertOut in [[stage_in]],
+  constant LutUniforms& u [[buffer(0)]],
+  texture2d<float, access::sample> source [[texture(0)]],
+  texture2d<float, access::sample> haldLut [[texture(1)]]
+) {
+  constexpr sampler smp(
+    address::clamp_to_edge,
+    filter::linear,
+    mip_filter::none
+  );
+  const float2 uv = in.uv;
+  const float3 src = source.sample(smp, uv).rgb;
+  const float3 graded = applyHaldTrilinear(haldLut, smp, src, u.level);
+  const float3 outRgb = mix(src, graded, u.intensity);
+  return float4(outRgb, 1.0f);
+}

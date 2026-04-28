@@ -8,7 +8,7 @@
 #include "NitroLutPro-Swift-Cxx-Bridge.hpp"
 
 // Include C++ implementation defined types
-#include "HybridLutProcessorSpecSwift.hpp"
+#include "HybridLUTProcessorSpecSwift.hpp"
 #include "NitroLutPro-Swift-Cxx-Umbrella.hpp"
 #include <NitroModules/NitroDefines.hpp>
 
@@ -30,19 +30,19 @@ namespace margelo::nitro::lutpro::bridge::swift {
     };
   }
   
-  // pragma MARK: std::shared_ptr<HybridLutProcessorSpec>
-  std::shared_ptr<HybridLutProcessorSpec> create_std__shared_ptr_HybridLutProcessorSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
-    NitroLutPro::HybridLutProcessorSpec_cxx swiftPart = NitroLutPro::HybridLutProcessorSpec_cxx::fromUnsafe(swiftUnsafePointer);
-    return std::make_shared<margelo::nitro::lutpro::HybridLutProcessorSpecSwift>(swiftPart);
+  // pragma MARK: std::shared_ptr<HybridLUTProcessorSpec>
+  std::shared_ptr<HybridLUTProcessorSpec> create_std__shared_ptr_HybridLUTProcessorSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroLutPro::HybridLUTProcessorSpec_cxx swiftPart = NitroLutPro::HybridLUTProcessorSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::lutpro::HybridLUTProcessorSpecSwift>(swiftPart);
   }
-  void* NON_NULL get_std__shared_ptr_HybridLutProcessorSpec_(std__shared_ptr_HybridLutProcessorSpec_ cppType) {
-    std::shared_ptr<margelo::nitro::lutpro::HybridLutProcessorSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::lutpro::HybridLutProcessorSpecSwift>(cppType);
+  void* NON_NULL get_std__shared_ptr_HybridLUTProcessorSpec_(std__shared_ptr_HybridLUTProcessorSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::lutpro::HybridLUTProcessorSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::lutpro::HybridLUTProcessorSpecSwift>(cppType);
     #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
-      throw std::runtime_error("Class \"HybridLutProcessorSpec\" is not implemented in Swift!");
+      throw std::runtime_error("Class \"HybridLUTProcessorSpec\" is not implemented in Swift!");
     }
     #endif
-    NitroLutPro::HybridLutProcessorSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    NitroLutPro::HybridLUTProcessorSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
 

@@ -1,26 +1,26 @@
 {
   "$schema": "https://nitro.margelo.com/nitro.schema.json",
   "cxxNamespace": [
-    "LutProcessor"
+    "lutpro"
   ],
   "ios": {
-    "iosModuleName": "LutProcessor"
+    "iosModuleName": "NitroLutPro"
   },
   "android": {
     "androidNamespace": [
-      "LutProcessor"
+      "lutpro"
     ],
-    "androidCxxLibName": "LutProcessor"
+    "androidCxxLibName": "NitroLutPro"
   },
   "autolinking": {
-    "LutProcessor": {
+    "LUTProcessor": {
       "ios": {
         "language": "swift",
-        "implementationClassName": "HybridLutProcessor"
+        "implementationClassName": "HybridLUTProcessor"
       },
       "android": {
         "language": "kotlin",
-        "implementationClassName": "HybridLutProcessor"
+        "implementationClassName": "HybridLUTProcessor"
       }
     }
   },

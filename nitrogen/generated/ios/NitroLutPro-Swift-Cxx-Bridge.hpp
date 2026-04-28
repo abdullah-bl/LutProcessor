@@ -8,15 +8,15 @@
 #pragma once
 
 // Forward declarations of C++ defined types
-// Forward declaration of `HybridLutProcessorSpec` to properly resolve imports.
-namespace margelo::nitro::lutpro { class HybridLutProcessorSpec; }
+// Forward declaration of `HybridLUTProcessorSpec` to properly resolve imports.
+namespace margelo::nitro::lutpro { class HybridLUTProcessorSpec; }
 
 // Forward declarations of Swift defined types
-// Forward declaration of `HybridLutProcessorSpec_cxx` to properly resolve imports.
-namespace NitroLutPro { class HybridLutProcessorSpec_cxx; }
+// Forward declaration of `HybridLUTProcessorSpec_cxx` to properly resolve imports.
+namespace NitroLutPro { class HybridLUTProcessorSpec_cxx; }
 
 // Include C++ defined types
-#include "HybridLutProcessorSpec.hpp"
+#include "HybridLUTProcessorSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
@@ -87,17 +87,17 @@ namespace margelo::nitro::lutpro::bridge::swift {
     return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::shared_ptr<HybridLutProcessorSpec>
+  // pragma MARK: std::shared_ptr<HybridLUTProcessorSpec>
   /**
-   * Specialized version of `std::shared_ptr<HybridLutProcessorSpec>`.
+   * Specialized version of `std::shared_ptr<HybridLUTProcessorSpec>`.
    */
-  using std__shared_ptr_HybridLutProcessorSpec_ = std::shared_ptr<HybridLutProcessorSpec>;
-  std::shared_ptr<HybridLutProcessorSpec> create_std__shared_ptr_HybridLutProcessorSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
-  void* NON_NULL get_std__shared_ptr_HybridLutProcessorSpec_(std__shared_ptr_HybridLutProcessorSpec_ cppType);
+  using std__shared_ptr_HybridLUTProcessorSpec_ = std::shared_ptr<HybridLUTProcessorSpec>;
+  std::shared_ptr<HybridLUTProcessorSpec> create_std__shared_ptr_HybridLUTProcessorSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridLUTProcessorSpec_(std__shared_ptr_HybridLUTProcessorSpec_ cppType);
   
-  // pragma MARK: std::weak_ptr<HybridLutProcessorSpec>
-  using std__weak_ptr_HybridLutProcessorSpec_ = std::weak_ptr<HybridLutProcessorSpec>;
-  inline std__weak_ptr_HybridLutProcessorSpec_ weakify_std__shared_ptr_HybridLutProcessorSpec_(const std::shared_ptr<HybridLutProcessorSpec>& strong) noexcept { return strong; }
+  // pragma MARK: std::weak_ptr<HybridLUTProcessorSpec>
+  using std__weak_ptr_HybridLUTProcessorSpec_ = std::weak_ptr<HybridLUTProcessorSpec>;
+  inline std__weak_ptr_HybridLUTProcessorSpec_ weakify_std__shared_ptr_HybridLUTProcessorSpec_(const std::shared_ptr<HybridLUTProcessorSpec>& strong) noexcept { return strong; }
   
   // pragma MARK: Result<std::shared_ptr<Promise<std::string>>>
   using Result_std__shared_ptr_Promise_std__string___ = Result<std::shared_ptr<Promise<std::string>>>;

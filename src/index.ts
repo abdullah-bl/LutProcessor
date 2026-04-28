@@ -1,8 +1,8 @@
 import { NitroModules } from 'react-native-nitro-modules'
-import type { LutProcessor } from './specs/LutProcessor.nitro'
+import type { LUTProcessor } from './specs/LUTProcessor.nitro'
 
-export type { LutProcessor } from './specs/LutProcessor.nitro'
+export type { LUTProcessor } from './specs/LUTProcessor.nitro'
 
-export function getLutProcessor(): LutProcessor {
-  return NitroModules.createHybridObject<LutProcessor>('LutProcessor')
+export function getLUTProcessor(): LUTProcessor {
+  return NitroModules.createHybridObject<LUTProcessor>('LUTProcessor')
 }

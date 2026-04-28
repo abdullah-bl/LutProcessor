@@ -15,7 +15,7 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
-#include "JHybridLutProcessorSpec.hpp"
+#include "JHybridLUTProcessorSpec.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::lutpro {
@@ -26,12 +26,12 @@ int initialize(JavaVM* vm) {
   });
 }
 
-struct JHybridLutProcessorSpecImpl: public jni::JavaClass<JHybridLutProcessorSpecImpl, JHybridLutProcessorSpec::JavaPart> {
-  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/lutpro/HybridLutProcessor;";
-  static std::shared_ptr<JHybridLutProcessorSpec> create() {
-    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridLutProcessorSpecImpl::javaobject()>();
-    jni::local_ref<JHybridLutProcessorSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
-    return javaPart->getJHybridLutProcessorSpec();
+struct JHybridLUTProcessorSpecImpl: public jni::JavaClass<JHybridLUTProcessorSpecImpl, JHybridLUTProcessorSpec::JavaPart> {
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/lutpro/HybridLUTProcessor;";
+  static std::shared_ptr<JHybridLUTProcessorSpec> create() {
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridLUTProcessorSpecImpl::javaobject()>();
+    jni::local_ref<JHybridLUTProcessorSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridLUTProcessorSpec();
   }
 };
 
@@ -40,13 +40,13 @@ void registerAllNatives() {
   using namespace margelo::nitro::lutpro;
 
   // Register native JNI methods
-  margelo::nitro::lutpro::JHybridLutProcessorSpec::CxxPart::registerNatives();
+  margelo::nitro::lutpro::JHybridLUTProcessorSpec::CxxPart::registerNatives();
 
   // Register Nitro Hybrid Objects
   HybridObjectRegistry::registerHybridObjectConstructor(
-    "LutProcessor",
+    "LUTProcessor",
     []() -> std::shared_ptr<HybridObject> {
-      return JHybridLutProcessorSpecImpl::create();
+      return JHybridLUTProcessorSpecImpl::create();
     }
   );
 }

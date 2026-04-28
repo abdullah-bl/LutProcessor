@@ -10,7 +10,7 @@
 #import "NitroLutPro-Swift-Cxx-Umbrella.hpp"
 #import <type_traits>
 
-#include "HybridLutProcessorSpecSwift.hpp"
+#include "HybridLUTProcessorSpecSwift.hpp"
 
 @interface NitroLutProAutolinking : NSObject
 @end
@@ -22,9 +22,9 @@
   using namespace margelo::nitro::lutpro;
 
   HybridObjectRegistry::registerHybridObjectConstructor(
-    "LutProcessor",
+    "LUTProcessor",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridLutProcessorSpec> hybridObject = NitroLutPro::NitroLutProAutolinking::createLutProcessor();
+      std::shared_ptr<HybridLUTProcessorSpec> hybridObject = NitroLutPro::NitroLutProAutolinking::createLUTProcessor();
       return hybridObject;
     }
   );

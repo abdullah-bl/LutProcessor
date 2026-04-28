@@ -8,11 +8,11 @@
 #pragma once
 
 // Forward declarations of C++ defined types
-// Forward declaration of `HybridLutProcessorSpec` to properly resolve imports.
-namespace margelo::nitro::lutpro { class HybridLutProcessorSpec; }
+// Forward declaration of `HybridLUTProcessorSpec` to properly resolve imports.
+namespace margelo::nitro::lutpro { class HybridLUTProcessorSpec; }
 
 // Include C++ defined types
-#include "HybridLutProcessorSpec.hpp"
+#include "HybridLUTProcessorSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
@@ -29,8 +29,8 @@ namespace margelo::nitro::lutpro { class HybridLutProcessorSpec; }
 #include <NitroModules/DateToChronoDate.hpp>
 
 // Forward declarations of Swift defined types
-// Forward declaration of `HybridLutProcessorSpec_cxx` to properly resolve imports.
-namespace NitroLutPro { class HybridLutProcessorSpec_cxx; }
+// Forward declaration of `HybridLUTProcessorSpec_cxx` to properly resolve imports.
+namespace NitroLutPro { class HybridLUTProcessorSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroLutPro-Swift.h")

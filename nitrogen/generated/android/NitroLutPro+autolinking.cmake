@@ -33,9 +33,9 @@ target_sources(
   # Autolinking Setup
   ../nitrogen/generated/android/NitroLutProOnLoad.cpp
   # Shared Nitrogen C++ sources
-  ../nitrogen/generated/shared/c++/HybridLutProcessorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridLUTProcessorSpec.cpp
   # Android-specific Nitrogen C++ sources
-  ../nitrogen/generated/android/c++/JHybridLutProcessorSpec.cpp
+  ../nitrogen/generated/android/c++/JHybridLUTProcessorSpec.cpp
 )
 
 # From node_modules/react-native/ReactAndroid/cmake-utils/folly-flags.cmake

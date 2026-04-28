@@ -22,7 +22,7 @@ import javax.microedition.khronos.egl.EGLSurface
 /**
  * Hald CLUT (PNG) or Iridas/Adobe .cube 3D LUT via OpenGL ES 3.
  */
-class HybridLutProcessor : HybridLutProcessorSpec() {
+class HybridLUTProcessor : HybridLUTProcessorSpec() {
   override fun applyLut(
     imagePath: String,
     lutPath: String,
@@ -34,6 +34,18 @@ class HybridLutProcessor : HybridLutProcessorSpec() {
         imagePath = normalizeFilePath(imagePath),
         lutPath = normalizeFilePath(lutPath),
         intensity = f,
+      )
+    }
+  }
+
+  override fun applyLutToVideo(
+    videoPath: String,
+    lutPath: String,
+    intensity: Double,
+  ): Promise<String> {
+    return Promise.parallel {
+      throw UnsupportedOperationException(
+        "Video LUT processing is not implemented on Android yet",
       )
     }
   }

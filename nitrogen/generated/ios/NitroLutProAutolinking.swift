@@ -12,15 +12,15 @@ import NitroModules
 public final class NitroLutProAutolinking {
   public typealias bridge = margelo.nitro.lutpro.bridge.swift
 
-  public static func createLutProcessor() -> bridge.std__shared_ptr_HybridLutProcessorSpec_ {
-    let hybridObject = HybridLutProcessor()
-    return { () -> bridge.std__shared_ptr_HybridLutProcessorSpec_ in
+  public static func createLUTProcessor() -> bridge.std__shared_ptr_HybridLUTProcessorSpec_ {
+    let hybridObject = HybridLUTProcessor()
+    return { () -> bridge.std__shared_ptr_HybridLUTProcessorSpec_ in
       let __cxxWrapped = hybridObject.getCxxWrapper()
       return __cxxWrapped.getCxxPart()
     }()
   }
   
-  public static func isLutProcessorRecyclable() -> Bool {
-    return HybridLutProcessor.self is any RecyclableView.Type
+  public static func isLUTProcessorRecyclable() -> Bool {
+    return HybridLUTProcessor.self is any RecyclableView.Type
   }
 }

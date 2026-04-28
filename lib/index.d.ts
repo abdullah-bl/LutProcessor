@@ -1,3 +1,3 @@
-import type { LutProcessor } from './specs/LutProcessor.nitro';
-export type { LutProcessor } from './specs/LutProcessor.nitro';
-export declare function getLutProcessor(): LutProcessor;
+import type { LUTProcessor } from './specs/LUTProcessor.nitro';
+export type { LUTProcessor } from './specs/LUTProcessor.nitro';
+export declare function getLUTProcessor(): LUTProcessor;

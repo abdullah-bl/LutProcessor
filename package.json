@@ -1,7 +1,7 @@
 {
-  "name": "LutProcessor",
+  "name": "LUTProcessor",
   "version": "0.0.1",
-  "description": "LutProcessor",
+  "description": "LUTProcessor",
   "main": "lib/index",
   "module": "lib/index",
   "types": "lib/index.d.ts",
