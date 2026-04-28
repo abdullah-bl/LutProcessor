@@ -1,4 +1,10 @@
-// Keep in sync with ios/LutShaders.swift (lutShaderSource).
+import Foundation
+
+// Keep in sync with ios/LutShaders.metal.
+// This embedded copy is compiled at runtime via MTLDevice.makeLibrary(source:options:)
+// so the renderer works when consumed as a static library (no use_frameworks!),
+// where the precompiled default.metallib is not copied into the host app bundle.
+let lutShaderSource: String = #"""
 #include <metal_stdlib>
 using namespace metal;
 
@@ -116,3 +122,4 @@ fragment float4 lutFragment(
   const float3 outRgb = mix(src, graded, u.intensity);
   return float4(outRgb, 1.0f);
 }
+"""#

@@ -28,7 +28,7 @@ enum MetalLutError: Error {
 final class MetalLutRenderer {
   private let device: MTLDevice
   private let commandQueue: MTLCommandQueue
-  private let pipelineStateHald: MTLRenderPipelineState
+  private let pipelineStateHald: MTLRenderPipelineState?
   private let pipelineStateCube: MTLRenderPipelineState
   private let textureLoader: MTKTextureLoader
 
@@ -43,23 +43,87 @@ final class MetalLutRenderer {
     self.commandQueue = queue
     self.textureLoader = MTKTextureLoader(device: dev)
 
-    guard let library = dev.makeDefaultLibrary() else {
-      throw MetalLutError.failedToBuildPipeline("Missing default Metal library")
-    }
+    let library = try Self.makeMetalLibrary(device: dev)
+
     guard let vfn = library.makeFunction(name: "lutVertex") else {
       throw MetalLutError.failedToBuildPipeline("LUT vertex not found")
     }
-    self.pipelineStateHald = try Self.makePipeline(
-      device: dev,
-      label: "hald",
-      vertex: vfn,
-      fragment: library.makeFunction(name: "lutFragment")
-    )
+
+    if let haldFragment = library.makeFunction(name: "lutFragment") {
+      self.pipelineStateHald = try Self.makePipeline(
+        device: dev,
+        label: "hald",
+        vertex: vfn,
+        fragment: haldFragment
+      )
+    } else {
+      self.pipelineStateHald = nil
+    }
+
+    guard let cubeFragment = library.makeFunction(name: "lutFragmentCube") else {
+      throw MetalLutError.failedToBuildPipeline("Missing fragment: cube")
+    }
     self.pipelineStateCube = try Self.makePipeline(
       device: dev,
       label: "cube",
       vertex: vfn,
-      fragment: library.makeFunction(name: "lutFragmentCube")
+      fragment: cubeFragment
+    )
+  }
+
+  /// Loads the Metal library used by the LUT pipelines.
+  ///
+  /// Primary path: compile the embedded shader source at runtime. This works when
+  /// NitroLutPro is consumed as a static library (no `use_frameworks!`), where
+  /// the precompiled `default.metallib` is not copied into the host `.app`.
+  ///
+  /// Fallbacks (in order): the class's own bundle, a nested `NitroLutPro.bundle`
+  /// resource bundle (produced by the podspec's `s.resource_bundles`), then
+  /// `Bundle.main`, then the device's framework default.
+  private static func makeMetalLibrary(device: MTLDevice) throws -> MTLLibrary {
+    var collected: [String] = []
+
+    do {
+      let opts = MTLCompileOptions()
+      return try device.makeLibrary(source: lutShaderSource, options: opts)
+    } catch {
+      collected.append("source: \(error.localizedDescription)")
+    }
+
+    let bundles: [Bundle] = {
+      var seen = Set<String>()
+      var result: [Bundle] = []
+      let classBundle = Bundle(for: MetalLutRenderer.self)
+      if seen.insert(classBundle.bundlePath).inserted {
+        result.append(classBundle)
+      }
+      if let url = classBundle.url(forResource: "NitroLutPro", withExtension: "bundle"),
+         let nested = Bundle(url: url),
+         seen.insert(nested.bundlePath).inserted {
+        result.append(nested)
+      }
+      if seen.insert(Bundle.main.bundlePath).inserted {
+        result.append(Bundle.main)
+      }
+      return result
+    }()
+
+    for bundle in bundles {
+      do {
+        return try device.makeDefaultLibrary(bundle: bundle)
+      } catch {
+        let id = bundle.bundleIdentifier ?? bundle.bundlePath
+        collected.append("bundle \(id): \(error.localizedDescription)")
+      }
+    }
+
+    if let lib = device.makeDefaultLibrary() {
+      return lib
+    }
+    collected.append("makeDefaultLibrary(): nil")
+
+    throw MetalLutError.failedToBuildPipeline(
+      "Could not load Metal library. Tried: " + collected.joined(separator: " | ")
     )
   }
 
@@ -198,6 +262,11 @@ final class MetalLutRenderer {
     else {
       throw MetalLutError.renderFailed
     }
+    guard let haldPipeline = pipelineStateHald else {
+      throw MetalLutError.failedToBuildPipeline(
+        "Hald LUT pipeline not built (lutFragment missing)"
+      )
+    }
     var uniforms = LutUniforms(
       level: level,
       intensity: intensity,
@@ -208,7 +277,7 @@ final class MetalLutRenderer {
       outTexture: outTexture,
       width: width,
       height: height,
-      pipeline: pipelineStateHald,
+      pipeline: haldPipeline,
       setupEncoder: { enc in
         enc.setFragmentBuffer(&uni, length: MemoryLayout<LutUniforms>.stride, index: 0)
         enc.setFragmentTexture(sourceTexture, index: 0)

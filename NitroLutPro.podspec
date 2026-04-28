@@ -18,12 +18,19 @@ Pod::Spec.new do |s|
   s.source_files = [
     # Implementation (Swift)
     "ios/**/*.{swift}",
-    "ios/**/*.metal",
     # Autolinking/Registration (Objective-C++)
     "ios/**/*.{m,mm}",
     # Implementation (C++ objects)
     "cpp/**/*.{hpp,cpp}",
   ]
+
+  # Ship the .metal shader as a precompiled metallib inside a Pod resource bundle
+  # so the host `.app` gets a `NitroLutPro.bundle/default.metallib` it can load
+  # via `Bundle(for: MetalLutRenderer.self).url(forResource: "NitroLutPro", withExtension: "bundle")`.
+  # This is a fallback for the runtime source-compile path in LutShaders.swift.
+  s.resource_bundles = {
+    "NitroLutPro" => ["ios/**/*.metal"],
+  }
 
   load 'nitrogen/generated/ios/NitroLutPro+autolinking.rb'
   add_nitrogen_files(s)

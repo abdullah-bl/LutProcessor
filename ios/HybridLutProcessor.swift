@@ -19,8 +19,9 @@ public final class HybridLUTProcessor: HybridLUTProcessorSpec {
       switch self.engine {
       case .success(let r):
         renderer = r
-      case .failure:
-        throw RuntimeError("Failed to create Metal GPU context for LUT")
+      case .failure(let err):
+        let detail = (err as? CustomStringConvertible)?.description ?? String(describing: err)
+        throw RuntimeError("Failed to create Metal GPU context for LUT: \(detail)")
       }
       do {
         return try renderer.applyLutToFile(

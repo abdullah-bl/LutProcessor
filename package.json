@@ -1,6 +1,6 @@
 {
   "name": "LUTProcessor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "LUTProcessor",
   "main": "lib/index",
   "module": "lib/index",
@@ -23,6 +23,7 @@
     "ios/**/*.mm",
     "ios/**/*.cpp",
     "ios/**/*.swift",
+    "ios/**/*.metal",
     "app.plugin.js",
     "nitro.json",
     "*.podspec",
